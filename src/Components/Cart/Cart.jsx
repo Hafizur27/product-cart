@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { CartContext } from "../../provider/Context/Context";
 const Cart = () => {
   const { carts, dispatch } = useContext(CartContext);
-
+ 
   const handleDeleteBtn = (id) =>{
     dispatch({type: 'REMOVE_PRODUCT', payload: id});
   }
@@ -24,20 +24,21 @@ const Cart = () => {
             <th>Title</th>
             <th>Category</th>
             <th>Price</th>
+            <th>Sub Total</th>
             <th>Quantity</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {
-          carts.cartItem.map((data,index)=><tr key={data.id}>
+          carts.cartItem?.map((data,index)=><tr key={data.id}>
           <td>{index + 1}</td>
           <td> 
             <div className="flex items-center space-x-3">
               <div className="avatar">
                 <div className="mask mask-squircle w-12 h-12">
                   <img
-                    src={data.image}
+                    src={data?.image}
                     alt="Avatar Tailwind CSS Component"
                   />
                 </div>
@@ -45,16 +46,17 @@ const Cart = () => {
             </div>
           </td>
           <td>
-            {data.title}
+            {data?.title}
           </td>
-          <td>{data.category}</td>
-          <td>{data.price}</td>
+          <td>{data?.category}</td>
+          <td>{data?.price}</td>
+          <td>{data?.price * data?.orderQty}</td>
           <td>
             <div className="flex items-center gap-2">
               <button onClick={()=>handleDecreaseBtn(data)} className="bg-red-600 text-white px-2 text-lg rounded-lg font-bold">
                 -
               </button>
-              <span>{data.orderQty}</span>
+              <span>{data?.orderQty}</span>
               <button onClick={()=>handleIncreaseBtn(data)} className="bg-green-600 text-white px-2 text-lg rounded-lg font-bold">
                 +
               </button>
